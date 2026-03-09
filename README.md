@@ -1,15 +1,13 @@
 # Weather Shopper Playwright Agents
 
-End-to-end Playwright test suite for the Weather Shopper demo app built using Playwrigt Agents only(no manual code intervention):
+End-to-end Playwright test suite for the Weather Shopper demo app built using Playwright Agents only (no manual code intervention):
 `http://weathershopper.pythonanywhere.com`
 
 This project includes:
-- Temperature-driven product path validation
-- Moisturizer and sunscreen purchase flows
-- Cart integrity validation
-- Stripe checkout happy path and validation scenarios
-- Confirmation page validation
-- Full end-to-end purchase flow based on live temperature
+- Single end-to-end purchase flow based on live temperature
+- Temperature-based route selection (moisturizer/sunscreen)
+- Product selection by keyword and least price
+- Cart validation, Stripe checkout, and confirmation validation
 
 ## Tech Stack
 
@@ -17,7 +15,7 @@ This project includes:
 - TypeScript-style Playwright tests (`@playwright/test`)
 - Playwright test runner
 
-## Project Structure
+## Project Structure (Original)
 
 ```text
 .
@@ -40,10 +38,35 @@ This project includes:
 `-- package.json
 ```
 
+## Project Structure (Current)
+
+```text
+.
+|-- .git/
+|-- .github/
+|-- .gitignore
+|-- .vscode/
+|-- node_modules/
+|-- package-lock.json
+|-- package.json
+|-- playwright.config.ts
+|-- PLAYWRIGHT_AGENTS_WORKFLOW.md
+|-- README.md
+|-- seed.spec.ts
+|-- specs/
+|   |-- README.md
+|   `-- weather-shopper-purchase-flow.testplan.md
+`-- tests/
+    `-- e2e-temperature-based-purchase-success.spec.ts
+```
+
 ## Project Guide
 
 The project directory also contains a complete setup and build-flow guide:
 - `PLAYWRIGHT_AGENTS_WORKFLOW.md` (setup steps, prompts used, and execution flow)
+
+Latest addition in planning:
+- `specs/weather-shopper-purchase-flow.testplan.md` now also captures a single end-to-end temperature-based journey variant.
 
 ## Prerequisites
 
@@ -75,7 +98,13 @@ npx playwright test tests
 Run a single test file:
 
 ```bash
-npx playwright test tests/temperature-path-selection.spec.ts
+npx playwright test tests/e2e-temperature-based-purchase-success.spec.ts
+```
+
+Run in headed mode:
+
+```bash
+npx playwright test tests/e2e-temperature-based-purchase-success.spec.ts --headed
 ```
 
 Show HTML report after a run:
@@ -87,5 +116,5 @@ npx playwright show-report
 ## Notes
 
 - Tests run against a live external site, so product catalog data and temperature can vary between runs.
-- The suite includes resilient helpers (`tests/helpers.ts`) for cart and click stability on dynamic pages.
 - Stripe checkout uses test card data in the hosted test mode flow.
+- Historical multi-test files are documented in `PLAYWRIGHT_AGENTS_WORKFLOW.md` under original/previous structure sections.
